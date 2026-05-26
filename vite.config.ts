@@ -14,7 +14,7 @@ export default defineConfig({
   },
   vite: {
     server: {
-      allowedHosts: "all",
+      allowedHosts: ["prototype-impact-match.onrender.com"],
     },
   },
 });
