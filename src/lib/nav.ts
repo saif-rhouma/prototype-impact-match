@@ -1,0 +1,85 @@
+import {
+  LayoutDashboard,
+  Megaphone,
+  Users,
+  MessageSquare,
+  Briefcase,
+  Settings,
+  BarChart3,
+  UserCheck,
+  Compass,
+  Trophy,
+  Send,
+  User,
+  GraduationCap,
+  Shield,
+  Building2,
+  AlertTriangle,
+  Sparkles,
+} from "lucide-react";
+import type { SideItem } from "@/components/site/DashboardShell";
+
+export const COMPANY_NAV: SideItem[] = [
+  { to: "/company/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
+  { to: "/company/challenges", label: "Mes défis", icon: Megaphone },
+  { to: "/company/candidates", label: "Talents", icon: Users },
+  { to: "/company/recruitment", label: "Recrutement", icon: Briefcase },
+  { to: "/company/messages", label: "Messages", icon: MessageSquare },
+  { to: "/company/analytics", label: "Analytique", icon: BarChart3 },
+  { to: "/company/settings", label: "Paramètres", icon: Settings },
+];
+
+export const TALENT_NAV: SideItem[] = [
+  { to: "/talent/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
+  { to: "/talent/challenges", label: "Mes défis", icon: Compass },
+  { to: "/talent/teams", label: "Mes équipes", icon: Users },
+  { to: "/talent/submissions", label: "Soumissions", icon: Send },
+  { to: "/talent/career", label: "Carrière", icon: GraduationCap },
+  { to: "/talent/messages", label: "Messages", icon: MessageSquare },
+  { to: "/talent/profile", label: "Mon profil", icon: User },
+  { to: "/talent/settings", label: "Paramètres", icon: Settings },
+];
+
+export const ADMIN_NAV: SideItem[] = [
+  { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
+  { to: "/admin/companies", label: "Entreprises", icon: Building2 },
+  { to: "/admin/talents", label: "Talents", icon: Users },
+  { to: "/admin/challenges", label: "Défis", icon: Megaphone },
+  { to: "/admin/moderation", label: "Modération", icon: Shield },
+  { to: "/admin/matches", label: "Matchs", icon: Sparkles },
+  { to: "/admin/analytics", label: "Analytique", icon: BarChart3 },
+  { to: "/admin/settings", label: "Paramètres", icon: Settings },
+];
+
+export const STATUS_TINT: Record<string, string> = {
+  // Generic
+  Vérifiée: "teal",
+  Vérifié: "teal",
+  Ouvert: "teal",
+  Acceptée: "teal",
+  Recruté: "teal",
+  "Match trouvé": "teal",
+  Résolu: "teal",
+  "En attente": "orange",
+  "En cours": "orange",
+  Entretien: "orange",
+  "En revue": "orange",
+  Présélection: "orange",
+  Analyse: "orange",
+  Suspendue: "coral",
+  Suspendu: "coral",
+  Refusée: "coral",
+  Refusé: "coral",
+  Élevé: "coral",
+  Fermé: "coral",
+  Brouillon: "muted",
+  Nouveau: "primary",
+  Publié: "primary",
+  Finaliste: "primary",
+  Envoyée: "primary",
+  Vue: "primary",
+  Faible: "muted",
+  Modéré: "orange",
+  "En pause": "muted",
+  Clôturé: "muted",
+};

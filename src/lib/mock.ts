@@ -1,0 +1,481 @@
+export type Category =
+  | "Sustainability"
+  | "AI & Technology"
+  | "Education"
+  | "Health"
+  | "Smart Cities"
+  | "Green Energy"
+  | "Social Innovation";
+
+export const CATEGORIES: { name: Category; emoji: string; tint: string }[] = [
+  { name: "Sustainability", emoji: "🌱", tint: "teal" },
+  { name: "AI & Technology", emoji: "🤖", tint: "primary" },
+  { name: "Education", emoji: "📚", tint: "coral" },
+  { name: "Health", emoji: "💊", tint: "pink-soft" },
+  { name: "Smart Cities", emoji: "🏙️", tint: "orange" },
+  { name: "Green Energy", emoji: "⚡", tint: "teal" },
+  { name: "Social Innovation", emoji: "🤝", tint: "coral" },
+];
+
+export type Challenge = {
+  id: string;
+  title: string;
+  company: string;
+  companyLogo: string;
+  category: Category;
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  skills: string[];
+  deadline: string;
+  reward: string;
+  teams: boolean;
+  recruiting: boolean;
+  trending?: boolean;
+  featured?: boolean;
+  summary: string;
+};
+
+export const CHALLENGES: Challenge[] = [
+  {
+    id: "ch-1",
+    title: "Reimagine packaging for zero-waste retail",
+    company: "Verda Foods",
+    companyLogo: "🥬",
+    category: "Sustainability",
+    difficulty: "Intermediate",
+    skills: ["Design", "Materials", "LCA"],
+    deadline: "Jun 30",
+    reward: "€5,000 + Internship",
+    teams: true,
+    recruiting: true,
+    trending: true,
+    featured: true,
+    summary:
+      "Help us cut single-use plastic by 80% across our European supply chain with circular packaging concepts.",
+  },
+  {
+    id: "ch-2",
+    title: "AI copilot for first-line customer support",
+    company: "Northbeam",
+    companyLogo: "🛰️",
+    category: "AI & Technology",
+    difficulty: "Advanced",
+    skills: ["LLMs", "RAG", "TypeScript"],
+    deadline: "Jul 12",
+    reward: "€8,000",
+    teams: true,
+    recruiting: true,
+    trending: true,
+    featured: true,
+    summary:
+      "Prototype a multilingual support copilot grounded on our knowledge base with measurable deflection rates.",
+  },
+  {
+    id: "ch-3",
+    title: "Gamify financial literacy for teens",
+    company: "Bloom Bank",
+    companyLogo: "🏦",
+    category: "Education",
+    difficulty: "Beginner",
+    skills: ["Product", "UX", "Mobile"],
+    deadline: "Jun 22",
+    reward: "€3,000",
+    teams: true,
+    recruiting: false,
+    summary: "Design a mobile experience that makes saving and investing fun for 14–18 year olds.",
+  },
+  {
+    id: "ch-4",
+    title: "Detect early signs of burnout at scale",
+    company: "Caelum Health",
+    companyLogo: "🩺",
+    category: "Health",
+    difficulty: "Advanced",
+    skills: ["Data Science", "Ethics", "ML"],
+    deadline: "Aug 02",
+    reward: "€10,000 + Hiring",
+    teams: true,
+    recruiting: true,
+    featured: true,
+    summary:
+      "Build a privacy-first signal pipeline to surface early burnout indicators in remote teams.",
+  },
+  {
+    id: "ch-5",
+    title: "Citizen reporting for urban biodiversity",
+    company: "City of Lyon",
+    companyLogo: "🏙️",
+    category: "Smart Cities",
+    difficulty: "Intermediate",
+    skills: ["Civic Tech", "Mobile", "Maps"],
+    deadline: "Jul 18",
+    reward: "€4,500",
+    teams: true,
+    recruiting: false,
+    trending: true,
+    summary:
+      "Encourage citizens to report and protect green corridors across the metropolitan area.",
+  },
+  {
+    id: "ch-6",
+    title: "Microgrid sizing tool for rural cooperatives",
+    company: "SolaraCo",
+    companyLogo: "☀️",
+    category: "Green Energy",
+    difficulty: "Advanced",
+    skills: ["Energy", "Modeling", "Python"],
+    deadline: "Aug 20",
+    reward: "€7,500 + Hiring",
+    teams: true,
+    recruiting: true,
+    summary:
+      "Design an open-source sizing tool to help cooperatives plan and finance solar microgrids.",
+  },
+  {
+    id: "ch-7",
+    title: "Match volunteers to NGOs with AI",
+    company: "Hearth Foundation",
+    companyLogo: "💗",
+    category: "Social Innovation",
+    difficulty: "Intermediate",
+    skills: ["AI", "UX", "Backend"],
+    deadline: "Jul 05",
+    reward: "€4,000",
+    teams: true,
+    recruiting: true,
+    summary: "Build an intelligent matchmaker connecting volunteers to high-impact local NGOs.",
+  },
+  {
+    id: "ch-8",
+    title: "Smart routing for last-mile delivery EVs",
+    company: "Movitec",
+    companyLogo: "🚚",
+    category: "Smart Cities",
+    difficulty: "Advanced",
+    skills: ["Optimization", "Geo", "Backend"],
+    deadline: "Aug 14",
+    reward: "€9,000",
+    teams: true,
+    recruiting: true,
+    summary: "Reduce CO₂ per delivery by 25% with smarter routing and dynamic charging schedules.",
+  },
+];
+
+export type Talent = {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+  skills: { name: string; level: number }[];
+  city: string;
+  badges: string[];
+  match: number;
+  interests: Category[];
+};
+
+export const TALENTS: Talent[] = [
+  {
+    id: "t-1",
+    name: "Amélie Laurent",
+    role: "Product Designer",
+    avatar: "👩🏻‍🎨",
+    city: "Paris",
+    badges: ["Top 1%", "Sustainability"],
+    match: 94,
+    interests: ["Sustainability", "Social Innovation"],
+    skills: [
+      { name: "Design", level: 95 },
+      { name: "Research", level: 80 },
+      { name: "Product", level: 75 },
+      { name: "Code", level: 40 },
+      { name: "Strategy", level: 70 },
+      { name: "Storytelling", level: 90 },
+    ],
+  },
+  {
+    id: "t-2",
+    name: "Yusuf Demir",
+    role: "ML Engineer",
+    avatar: "👨🏽‍💻",
+    city: "Lyon",
+    badges: ["Hackathon Winner"],
+    match: 91,
+    interests: ["AI & Technology", "Health"],
+    skills: [
+      { name: "ML", level: 92 },
+      { name: "Python", level: 95 },
+      { name: "Math", level: 80 },
+      { name: "Design", level: 35 },
+      { name: "Product", level: 55 },
+      { name: "Comms", level: 65 },
+    ],
+  },
+  {
+    id: "t-3",
+    name: "Nora El-Sayed",
+    role: "Full-stack Dev",
+    avatar: "👩🏽‍💻",
+    city: "Marseille",
+    badges: ["Mentor"],
+    match: 88,
+    interests: ["Smart Cities", "Education"],
+    skills: [
+      { name: "Frontend", level: 88 },
+      { name: "Backend", level: 82 },
+      { name: "DB", level: 70 },
+      { name: "Design", level: 60 },
+      { name: "DevOps", level: 55 },
+      { name: "Product", level: 65 },
+    ],
+  },
+  {
+    id: "t-4",
+    name: "Liam Okafor",
+    role: "Data Scientist",
+    avatar: "🧑🏿‍🔬",
+    city: "Toulouse",
+    badges: ["Open Source"],
+    match: 86,
+    interests: ["Green Energy", "AI & Technology"],
+    skills: [
+      { name: "Stats", level: 90 },
+      { name: "Python", level: 88 },
+      { name: "Viz", level: 75 },
+      { name: "Design", level: 40 },
+      { name: "Storytelling", level: 70 },
+      { name: "Product", level: 55 },
+    ],
+  },
+  {
+    id: "t-5",
+    name: "Sara Kim",
+    role: "Frontend Engineer",
+    avatar: "👩🏻‍💻",
+    city: "Nantes",
+    badges: ["Top Reviewer"],
+    match: 84,
+    interests: ["Education", "Social Innovation"],
+    skills: [
+      { name: "React", level: 92 },
+      { name: "Design", level: 78 },
+      { name: "Motion", level: 70 },
+      { name: "A11y", level: 80 },
+      { name: "Backend", level: 50 },
+      { name: "Product", level: 60 },
+    ],
+  },
+  {
+    id: "t-6",
+    name: "Diego Alvarez",
+    role: "Sustainability Analyst",
+    avatar: "🧑🏽‍🌾",
+    city: "Bordeaux",
+    badges: ["Climate Fellow"],
+    match: 82,
+    interests: ["Sustainability", "Green Energy"],
+    skills: [
+      { name: "LCA", level: 88 },
+      { name: "Research", level: 80 },
+      { name: "Data", level: 70 },
+      { name: "Design", level: 45 },
+      { name: "Strategy", level: 75 },
+      { name: "Comms", level: 80 },
+    ],
+  },
+];
+
+export type Team = {
+  id: string;
+  name: string;
+  emoji: string;
+  challenge: string;
+  members: { name: string; avatar: string; role: string }[];
+  match: number;
+  open: boolean;
+  lookingFor: string[];
+};
+
+export const TEAMS: Team[] = [
+  {
+    id: "tm-1",
+    name: "Loop Studio",
+    emoji: "🌀",
+    challenge: "Reimagine packaging for zero-waste retail",
+    members: [
+      { name: "Amélie", avatar: "👩🏻‍🎨", role: "Designer" },
+      { name: "Diego", avatar: "🧑🏽‍🌾", role: "Sustainability" },
+      { name: "Nora", avatar: "👩🏽‍💻", role: "Engineer" },
+    ],
+    match: 96,
+    open: true,
+    lookingFor: ["Materials Scientist"],
+  },
+  {
+    id: "tm-2",
+    name: "Northstar AI",
+    emoji: "✨",
+    challenge: "AI copilot for first-line customer support",
+    members: [
+      { name: "Yusuf", avatar: "👨🏽‍💻", role: "ML" },
+      { name: "Sara", avatar: "👩🏻‍💻", role: "Frontend" },
+    ],
+    match: 91,
+    open: true,
+    lookingFor: ["Backend", "Product"],
+  },
+  {
+    id: "tm-3",
+    name: "Civic Pulse",
+    emoji: "🫀",
+    challenge: "Citizen reporting for urban biodiversity",
+    members: [
+      { name: "Liam", avatar: "🧑🏿‍🔬", role: "Data" },
+      { name: "Sara", avatar: "👩🏻‍💻", role: "Frontend" },
+    ],
+    match: 87,
+    open: false,
+    lookingFor: [],
+  },
+];
+
+export type Position = {
+  id: string;
+  title: string;
+  company: string;
+  emoji: string;
+  type: "Internship" | "Full-time" | "Apprenticeship";
+  city: string;
+  remote: boolean;
+  skills: string[];
+  match: number;
+};
+
+export const POSITIONS: Position[] = [
+  {
+    id: "p-1",
+    title: "Junior ML Engineer",
+    company: "Northbeam",
+    emoji: "🛰️",
+    type: "Full-time",
+    city: "Paris",
+    remote: true,
+    skills: ["LLMs", "Python", "RAG"],
+    match: 92,
+  },
+  {
+    id: "p-2",
+    title: "Product Design Intern",
+    company: "Verda Foods",
+    emoji: "🥬",
+    type: "Internship",
+    city: "Lyon",
+    remote: false,
+    skills: ["Figma", "Research"],
+    match: 88,
+  },
+  {
+    id: "p-3",
+    title: "Civic Tech Apprentice",
+    company: "City of Lyon",
+    emoji: "🏙️",
+    type: "Apprenticeship",
+    city: "Lyon",
+    remote: false,
+    skills: ["React", "Maps", "A11y"],
+    match: 81,
+  },
+  {
+    id: "p-4",
+    title: "Data Analyst",
+    company: "SolaraCo",
+    emoji: "☀️",
+    type: "Full-time",
+    city: "Bordeaux",
+    remote: true,
+    skills: ["SQL", "Python", "Tableau"],
+    match: 78,
+  },
+];
+
+export type Story = {
+  id: string;
+  title: string;
+  company: string;
+  outcome: string;
+  before: string;
+  after: string;
+  quote: string;
+  author: string;
+  tag: Category;
+};
+
+export const STORIES: Story[] = [
+  {
+    id: "s-1",
+    title: "From challenge winner to Head of Design",
+    company: "Verda Foods × Loop Studio",
+    outcome: "3 hires • 80% less plastic",
+    before: "12 packaging SKUs in single-use plastic",
+    after: "Reusable pouch system rolled out in 6 countries",
+    quote: "Impact Match brought us a team that genuinely got our mission.",
+    author: "Camille, Head of Innovation",
+    tag: "Sustainability",
+  },
+  {
+    id: "s-2",
+    title: "Hackathon team turned funded startup",
+    company: "Northbeam × Northstar AI",
+    outcome: "€1.2M seed raised",
+    before: "Manual support tickets, 14h SLA",
+    after: "Copilot deflects 62% of first responses",
+    quote: "We met our co-founder on the platform.",
+    author: "Yusuf, CTO",
+    tag: "AI & Technology",
+  },
+  {
+    id: "s-3",
+    title: "Civic prototype adopted by 4 cities",
+    company: "City of Lyon × Civic Pulse",
+    outcome: "120k citizens engaged",
+    before: "Yearly biodiversity audit",
+    after: "Live citizen map updated weekly",
+    quote: "A tangible jump in civic participation.",
+    author: "Inès, City CIO",
+    tag: "Smart Cities",
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    name: "Léa, 22",
+    role: "CS student → hired at Northbeam",
+    quote: "I joined a challenge on a Sunday and signed an offer two months later.",
+  },
+  {
+    name: "Karim, Founder",
+    role: "Verda Foods",
+    quote: "We tapped into an energy we couldn’t find through traditional recruiting.",
+  },
+  {
+    name: "Inès, 24",
+    role: "Civic Tech Lead",
+    quote: "The team matching is uncannily good. Real complementary skills.",
+  },
+];
+
+export const PARTNERS = [
+  "VERDA",
+  "NORTHBEAM",
+  "BLOOM BANK",
+  "CAELUM",
+  "SOLARACO",
+  "MOVITEC",
+  "HEARTH",
+  "LYON",
+];
+
+export const STATS = [
+  { label: "Challenges launched", value: 1280, suffix: "+" },
+  { label: "Young talents", value: 18500, suffix: "+" },
+  { label: "Partner companies", value: 320, suffix: "" },
+  { label: "Hires made", value: 760, suffix: "" },
+];
