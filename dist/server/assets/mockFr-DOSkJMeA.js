@@ -1,0 +1,762 @@
+const PIPELINE_STAGES = [
+  "Nouveau",
+  "Présélection",
+  "Entretien",
+  "Finaliste",
+  "Recruté"
+];
+const CANDIDATES = [
+  {
+    id: "c-1",
+    name: "Amélie Laurent",
+    avatar: "👩🏻‍🎨",
+    role: "Product Designer",
+    city: "Paris",
+    score: 94,
+    stage: "Finaliste",
+    skills: ["Figma", "UX", "Design System"],
+    challenges: 5,
+    badges: ["Top 1%", "Mentor"],
+    availability: "Immédiate"
+  },
+  {
+    id: "c-2",
+    name: "Yusuf Demir",
+    avatar: "👨🏽‍💻",
+    role: "ML Engineer",
+    city: "Lyon",
+    score: 91,
+    stage: "Entretien",
+    skills: ["Python", "PyTorch", "RAG"],
+    challenges: 4,
+    badges: ["Gagnant hackathon"],
+    availability: "1 mois"
+  },
+  {
+    id: "c-3",
+    name: "Nora El-Sayed",
+    avatar: "👩🏽‍💻",
+    role: "Full-stack Dev",
+    city: "Marseille",
+    score: 88,
+    stage: "Présélection",
+    skills: ["React", "Node", "Postgres"],
+    challenges: 3,
+    badges: ["Open Source"],
+    availability: "Immédiate"
+  },
+  {
+    id: "c-4",
+    name: "Liam Okafor",
+    avatar: "🧑🏿‍🔬",
+    role: "Data Scientist",
+    city: "Toulouse",
+    score: 86,
+    stage: "Entretien",
+    skills: ["Stats", "Python", "DuckDB"],
+    challenges: 6,
+    badges: ["Climate Fellow"],
+    availability: "3 mois"
+  },
+  {
+    id: "c-5",
+    name: "Sara Kim",
+    avatar: "👩🏻‍💻",
+    role: "Frontend Engineer",
+    city: "Nantes",
+    score: 84,
+    stage: "Nouveau",
+    skills: ["React", "Motion", "A11y"],
+    challenges: 2,
+    badges: ["Top Reviewer"],
+    availability: "Immédiate"
+  },
+  {
+    id: "c-6",
+    name: "Diego Alvarez",
+    avatar: "🧑🏽‍🌾",
+    role: "Sustainability Analyst",
+    city: "Bordeaux",
+    score: 82,
+    stage: "Nouveau",
+    skills: ["LCA", "Recherche"],
+    challenges: 3,
+    badges: ["Climate Fellow"],
+    availability: "1 mois"
+  },
+  {
+    id: "c-7",
+    name: "Inès Moreau",
+    avatar: "👩🏼‍🚀",
+    role: "Civic Tech Lead",
+    city: "Lyon",
+    score: 89,
+    stage: "Recruté",
+    skills: ["Product", "Maps", "Civic"],
+    challenges: 4,
+    badges: ["Leader"],
+    availability: "Immédiate"
+  },
+  {
+    id: "c-8",
+    name: "Karim Bensaïd",
+    avatar: "🧑🏻‍💼",
+    role: "Backend Engineer",
+    city: "Lille",
+    score: 78,
+    stage: "Présélection",
+    skills: ["Go", "Kafka", "K8s"],
+    challenges: 2,
+    badges: [],
+    availability: "3 mois"
+  }
+];
+const COMPANY_POSITIONS = [
+  {
+    id: "cp-1",
+    title: "Product Designer Junior",
+    type: "CDI",
+    city: "Paris",
+    remote: true,
+    candidates: 24,
+    status: "Ouvert",
+    openedAt: "12 mai"
+  },
+  {
+    id: "cp-2",
+    title: "Ingénieur ML",
+    type: "CDI",
+    city: "Lyon",
+    remote: true,
+    candidates: 18,
+    status: "Ouvert",
+    openedAt: "02 juin"
+  },
+  {
+    id: "cp-3",
+    title: "Stage Recherche Utilisateur",
+    type: "Stage",
+    city: "Paris",
+    remote: false,
+    candidates: 12,
+    status: "Ouvert",
+    openedAt: "20 mai"
+  },
+  {
+    id: "cp-4",
+    title: "Alternance Data Analyst",
+    type: "Alternance",
+    city: "Bordeaux",
+    remote: false,
+    candidates: 9,
+    status: "En pause",
+    openedAt: "01 avr"
+  },
+  {
+    id: "cp-5",
+    title: "Freelance Motion Designer",
+    type: "Freelance",
+    city: "Remote",
+    remote: true,
+    candidates: 31,
+    status: "Ouvert",
+    openedAt: "10 juin"
+  }
+];
+const CHALLENGE_STATUSES = [
+  "Brouillon",
+  "Publié",
+  "En cours",
+  "Analyse",
+  "Match trouvé",
+  "Fermé"
+];
+const COMPANY_CHALLENGES = [
+  {
+    id: "cc-1",
+    title: "Repenser l'emballage zéro-déchet",
+    status: "En cours",
+    submissions: 42,
+    teams: 12,
+    deadline: "30 juin",
+    category: "Durabilité"
+  },
+  {
+    id: "cc-2",
+    title: "Copilot IA pour le support client",
+    status: "Analyse",
+    submissions: 58,
+    teams: 17,
+    deadline: "12 juil",
+    category: "IA & Tech"
+  },
+  {
+    id: "cc-3",
+    title: "Gamifier l'éducation financière",
+    status: "Publié",
+    submissions: 14,
+    teams: 5,
+    deadline: "22 juin",
+    category: "Éducation"
+  },
+  {
+    id: "cc-4",
+    title: "Détecter le burnout au travail",
+    status: "Brouillon",
+    submissions: 0,
+    teams: 0,
+    deadline: "02 août",
+    category: "Santé"
+  },
+  {
+    id: "cc-5",
+    title: "Cartographie biodiversité urbaine",
+    status: "Match trouvé",
+    submissions: 36,
+    teams: 9,
+    deadline: "18 juil",
+    category: "Smart City"
+  },
+  {
+    id: "cc-6",
+    title: "Microgrid solaire rural",
+    status: "Fermé",
+    submissions: 22,
+    teams: 6,
+    deadline: "20 mars",
+    category: "Énergie"
+  }
+];
+const SUBMISSIONS = [
+  {
+    id: "sb-1",
+    team: "Loop Studio",
+    emoji: "🌀",
+    challenge: "Emballage zéro-déchet",
+    score: 96,
+    status: "Acceptée",
+    date: "10 juin"
+  },
+  {
+    id: "sb-2",
+    team: "Northstar AI",
+    emoji: "✨",
+    challenge: "Copilot IA support",
+    score: 91,
+    status: "En revue",
+    date: "12 juin"
+  },
+  {
+    id: "sb-3",
+    team: "Civic Pulse",
+    emoji: "🫀",
+    challenge: "Biodiversité urbaine",
+    score: 87,
+    status: "Envoyée",
+    date: "14 juin"
+  },
+  {
+    id: "sb-4",
+    team: "Solo · Amélie",
+    emoji: "👩🏻‍🎨",
+    challenge: "Éducation financière",
+    score: 82,
+    status: "Envoyée",
+    date: "15 juin"
+  }
+];
+const APPLICATIONS = [
+  {
+    id: "a-1",
+    position: "Product Designer Junior",
+    company: "Verda Foods",
+    emoji: "🥬",
+    status: "Entretien",
+    date: "08 juin"
+  },
+  {
+    id: "a-2",
+    position: "Ingénieur ML",
+    company: "Northbeam",
+    emoji: "🛰️",
+    status: "Finaliste",
+    date: "02 juin"
+  },
+  {
+    id: "a-3",
+    position: "Stage UX Researcher",
+    company: "Bloom Bank",
+    emoji: "🏦",
+    status: "Vue",
+    date: "12 juin"
+  },
+  {
+    id: "a-4",
+    position: "Alternance Data",
+    company: "SolaraCo",
+    emoji: "☀️",
+    status: "Envoyée",
+    date: "15 juin"
+  },
+  {
+    id: "a-5",
+    position: "Civic Tech Apprentice",
+    company: "City of Lyon",
+    emoji: "🏙️",
+    status: "Acceptée",
+    date: "20 mai"
+  },
+  {
+    id: "a-6",
+    position: "Frontend Engineer",
+    company: "Movitec",
+    emoji: "🚚",
+    status: "Refusée",
+    date: "01 juin"
+  }
+];
+const INTERVIEWS = [
+  {
+    id: "i-1",
+    with: "Camille D.",
+    avatar: "👩🏼‍💼",
+    position: "Product Designer Junior — Verda",
+    date: "Mer 26 juin",
+    time: "10:30",
+    mode: "Visio"
+  },
+  {
+    id: "i-2",
+    with: "Yann T.",
+    avatar: "👨🏻‍💼",
+    position: "Ingénieur ML — Northbeam",
+    date: "Jeu 27 juin",
+    time: "14:00",
+    mode: "Sur site"
+  },
+  {
+    id: "i-3",
+    with: "Sophie M.",
+    avatar: "👩🏽‍💼",
+    position: "Stage UX — Bloom Bank",
+    date: "Ven 28 juin",
+    time: "11:00",
+    mode: "Visio"
+  }
+];
+const MESSAGES = [
+  {
+    id: "m-1",
+    from: "Camille — Verda Foods",
+    avatar: "👩🏼‍💼",
+    preview: "Bonjour Amélie, votre prototype est superbe…",
+    time: "10:24",
+    unread: true
+  },
+  {
+    id: "m-2",
+    from: "Loop Studio",
+    avatar: "🌀",
+    preview: "On se synchronise ce soir 20h ?",
+    time: "Hier",
+    unread: true
+  },
+  {
+    id: "m-3",
+    from: "Yann — Northbeam",
+    avatar: "🛰️",
+    preview: "Petit retour sur votre soumission…",
+    time: "Hier",
+    unread: false
+  },
+  {
+    id: "m-4",
+    from: "Inès — Civic Pulse",
+    avatar: "🫀",
+    preview: "Top, je valide la roadmap.",
+    time: "Lun",
+    unread: false
+  },
+  {
+    id: "m-5",
+    from: "Support Impact Match",
+    avatar: "💛",
+    preview: "Bienvenue dans la communauté !",
+    time: "12 juin",
+    unread: false
+  }
+];
+const MODERATION = [
+  {
+    id: "mo-1",
+    type: "Signalement",
+    target: "Profil — Karim B.",
+    reason: "Comportement inapproprié dans le chat équipe",
+    level: "Élevé",
+    date: "14 juin",
+    status: "Ouvert"
+  },
+  {
+    id: "mo-2",
+    type: "Contenu suspect",
+    target: "Soumission — Solo · Léo",
+    reason: "Plagiat potentiel détecté",
+    level: "Modéré",
+    date: "12 juin",
+    status: "En cours"
+  },
+  {
+    id: "mo-3",
+    type: "Vérification",
+    target: "Entreprise — Movitec",
+    reason: "Document KBIS manquant",
+    level: "Faible",
+    date: "10 juin",
+    status: "Ouvert"
+  },
+  {
+    id: "mo-4",
+    type: "Signalement",
+    target: "Défi — Bloom Bank",
+    reason: "Description ambiguë",
+    level: "Faible",
+    date: "08 juin",
+    status: "Résolu"
+  },
+  {
+    id: "mo-5",
+    type: "Contenu suspect",
+    target: "Profil — anonyme_42",
+    reason: "Faux compte présumé",
+    level: "Élevé",
+    date: "06 juin",
+    status: "En cours"
+  }
+];
+const ADMIN_COMPANIES = [
+  {
+    id: "co-1",
+    name: "Verda Foods",
+    logo: "🥬",
+    sector: "Agro-alimentaire",
+    status: "Vérifiée",
+    challenges: 4,
+    hires: 3,
+    joined: "Jan 2025"
+  },
+  {
+    id: "co-2",
+    name: "Northbeam",
+    logo: "🛰️",
+    sector: "IA / SaaS",
+    status: "Vérifiée",
+    challenges: 6,
+    hires: 5,
+    joined: "Fév 2025"
+  },
+  {
+    id: "co-3",
+    name: "Bloom Bank",
+    logo: "🏦",
+    sector: "Fintech",
+    status: "Vérifiée",
+    challenges: 3,
+    hires: 1,
+    joined: "Mar 2025"
+  },
+  {
+    id: "co-4",
+    name: "Caelum Health",
+    logo: "🩺",
+    sector: "Santé",
+    status: "En attente",
+    challenges: 1,
+    hires: 0,
+    joined: "Juin 2025"
+  },
+  {
+    id: "co-5",
+    name: "Movitec",
+    logo: "🚚",
+    sector: "Mobilité",
+    status: "Suspendue",
+    challenges: 2,
+    hires: 0,
+    joined: "Avr 2025"
+  },
+  {
+    id: "co-6",
+    name: "SolaraCo",
+    logo: "☀️",
+    sector: "Énergie",
+    status: "Vérifiée",
+    challenges: 2,
+    hires: 2,
+    joined: "Mai 2025"
+  },
+  {
+    id: "co-7",
+    name: "City of Lyon",
+    logo: "🏙️",
+    sector: "Public",
+    status: "Vérifiée",
+    challenges: 3,
+    hires: 4,
+    joined: "Fév 2025"
+  },
+  {
+    id: "co-8",
+    name: "Hearth Foundation",
+    logo: "💗",
+    sector: "ONG",
+    status: "Refusée",
+    challenges: 0,
+    hires: 0,
+    joined: "Juin 2025"
+  }
+];
+const ADMIN_TALENTS = [
+  {
+    id: "at-1",
+    name: "Amélie Laurent",
+    avatar: "👩🏻‍🎨",
+    city: "Paris",
+    status: "Vérifié",
+    participations: 12,
+    badges: 4,
+    lastActive: "il y a 2h",
+    flagged: false
+  },
+  {
+    id: "at-2",
+    name: "Yusuf Demir",
+    avatar: "👨🏽‍💻",
+    city: "Lyon",
+    status: "Vérifié",
+    participations: 9,
+    badges: 3,
+    lastActive: "aujourd'hui",
+    flagged: false
+  },
+  {
+    id: "at-3",
+    name: "Karim Bensaïd",
+    avatar: "🧑🏻‍💼",
+    city: "Lille",
+    status: "Suspendu",
+    participations: 5,
+    badges: 1,
+    lastActive: "il y a 6j",
+    flagged: true
+  },
+  {
+    id: "at-4",
+    name: "Nora El-Sayed",
+    avatar: "👩🏽‍💻",
+    city: "Marseille",
+    status: "Vérifié",
+    participations: 8,
+    badges: 2,
+    lastActive: "il y a 1j",
+    flagged: false
+  },
+  {
+    id: "at-5",
+    name: "anonyme_42",
+    avatar: "🕶️",
+    city: "—",
+    status: "En attente",
+    participations: 1,
+    badges: 0,
+    lastActive: "il y a 3j",
+    flagged: true
+  },
+  {
+    id: "at-6",
+    name: "Sara Kim",
+    avatar: "👩🏻‍💻",
+    city: "Nantes",
+    status: "Vérifié",
+    participations: 7,
+    badges: 3,
+    lastActive: "hier",
+    flagged: false
+  }
+];
+const ACTIVITY = [
+  {
+    id: "ac-1",
+    who: "Camille D.",
+    avatar: "👩🏼‍💼",
+    action: "a validé la soumission",
+    target: "Loop Studio",
+    time: "il y a 5 min"
+  },
+  {
+    id: "ac-2",
+    who: "Yusuf D.",
+    avatar: "👨🏽‍💻",
+    action: "a rejoint le défi",
+    target: "Copilot IA",
+    time: "il y a 20 min"
+  },
+  {
+    id: "ac-3",
+    who: "Verda Foods",
+    avatar: "🥬",
+    action: "a publié un nouveau défi",
+    target: "Emballage circulaire v2",
+    time: "il y a 1h"
+  },
+  {
+    id: "ac-4",
+    who: "Nora E.",
+    avatar: "👩🏽‍💻",
+    action: "a programmé un entretien avec",
+    target: "Bloom Bank",
+    time: "il y a 2h"
+  },
+  {
+    id: "ac-5",
+    who: "Admin",
+    avatar: "🛡️",
+    action: "a vérifié l'entreprise",
+    target: "SolaraCo",
+    time: "il y a 3h"
+  }
+];
+const NOTIFICATIONS = [
+  {
+    id: "n-1",
+    title: "Nouvelle candidature reçue",
+    desc: "Amélie L. — Product Designer Junior",
+    time: "il y a 5 min",
+    tint: "primary"
+  },
+  {
+    id: "n-2",
+    title: "Match trouvé !",
+    desc: "Loop Studio × Emballage zéro-déchet",
+    time: "il y a 1h",
+    tint: "coral"
+  },
+  {
+    id: "n-3",
+    title: "Entretien dans 30 min",
+    desc: "Yusuf D. — Visio",
+    time: "il y a 2h",
+    tint: "teal"
+  },
+  {
+    id: "n-4",
+    title: "Soumission notée 96/100",
+    desc: "Northstar AI — Copilot IA",
+    time: "hier",
+    tint: "orange"
+  }
+];
+const GROWTH_DATA = [
+  { mois: "Jan", entreprises: 120, talents: 4200, matchs: 18 },
+  { mois: "Fév", entreprises: 145, talents: 5400, matchs: 26 },
+  { mois: "Mar", entreprises: 178, talents: 7200, matchs: 38 },
+  { mois: "Avr", entreprises: 214, talents: 9800, matchs: 54 },
+  { mois: "Mai", entreprises: 268, talents: 13200, matchs: 72 },
+  { mois: "Juin", entreprises: 320, talents: 18500, matchs: 96 }
+];
+const ENGAGEMENT_DATA = [
+  { jour: "Lun", actifs: 1240, soumissions: 86 },
+  { jour: "Mar", actifs: 1480, soumissions: 102 },
+  { jour: "Mer", actifs: 1620, soumissions: 118 },
+  { jour: "Jeu", actifs: 1580, soumissions: 124 },
+  { jour: "Ven", actifs: 1780, soumissions: 142 },
+  { jour: "Sam", actifs: 1320, soumissions: 96 },
+  { jour: "Dim", actifs: 980, soumissions: 64 }
+];
+const REGION_DATA = [
+  { region: "Île-de-France", value: 38 },
+  { region: "AURA", value: 22 },
+  { region: "PACA", value: 14 },
+  { region: "Occitanie", value: 12 },
+  { region: "Bretagne", value: 8 },
+  { region: "Autres", value: 6 }
+];
+const CONVERSION_DATA = [
+  { etape: "Inscrits", value: 18500 },
+  { etape: "Profils complétés", value: 12400 },
+  { etape: "Défis rejoints", value: 8200 },
+  { etape: "Soumissions", value: 3400 },
+  { etape: "Entretiens", value: 1240 },
+  { etape: "Recrutés", value: 760 }
+];
+const RSE_DATA = [
+  { axe: "Diversité", value: 78 },
+  { axe: "Inclusion", value: 82 },
+  { axe: "Climat", value: 71 },
+  { axe: "Social", value: 88 },
+  { axe: "Éducation", value: 74 },
+  { axe: "Local", value: 69 }
+];
+const TEAM_CHAT = [
+  {
+    id: 1,
+    user: "Amélie",
+    avatar: "👩🏻‍🎨",
+    msg: "J'ai uploadé la v3 du moodboard 🎨",
+    time: "10:12",
+    mine: false
+  },
+  {
+    id: 2,
+    user: "Vous",
+    avatar: "🙋",
+    msg: "Top ! Je regarde tout de suite.",
+    time: "10:14",
+    mine: true
+  },
+  {
+    id: 3,
+    user: "Nora",
+    avatar: "👩🏽‍💻",
+    msg: "Le proto Figma est prêt à tester.",
+    time: "10:20",
+    mine: false
+  },
+  {
+    id: 4,
+    user: "Diego",
+    avatar: "🧑🏽‍🌾",
+    msg: "J'ajoute les chiffres LCA dans le deck.",
+    time: "10:32",
+    mine: false
+  },
+  {
+    id: 5,
+    user: "Vous",
+    avatar: "🙋",
+    msg: "Parfait, on cale une session demain 18h ?",
+    time: "10:34",
+    mine: true
+  }
+];
+export {
+  ACTIVITY as A,
+  CANDIDATES as C,
+  ENGAGEMENT_DATA as E,
+  GROWTH_DATA as G,
+  INTERVIEWS as I,
+  MESSAGES as M,
+  NOTIFICATIONS as N,
+  PIPELINE_STAGES as P,
+  REGION_DATA as R,
+  SUBMISSIONS as S,
+  TEAM_CHAT as T,
+  ADMIN_COMPANIES as a,
+  ADMIN_TALENTS as b,
+  APPLICATIONS as c,
+  CHALLENGE_STATUSES as d,
+  COMPANY_CHALLENGES as e,
+  COMPANY_POSITIONS as f,
+  CONVERSION_DATA as g,
+  MODERATION as h,
+  RSE_DATA as i
+};
